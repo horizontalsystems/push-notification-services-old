@@ -3,7 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import routes from '../routes'
-import winston from '../utils/logger.winston'
+import logger from '../utils/logger.winston'
 
 const morgan = require('morgan');
 
@@ -32,11 +32,12 @@ class PushNotificationServer {
     }
 
     initializeMiddlewares() {
-        this.app.use(morgan('combined', { stream: winston.stream }));
+        this.app.use(morgan('combined', { stream: logger.stream }));
     }
 
     listen(port) {
         this.http.listen(port);
+        logger.info(`App started listening port:${port}`)
     }
 }
 
