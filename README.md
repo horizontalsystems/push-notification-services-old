@@ -2,6 +2,21 @@
 
 Push notification services (Node.JS)
 
+## Installation with Docker
+
+```bash
+$ git clone https://github.com/horizontalsystems/push-notification-services
+$ cd push-notification-services
+```
+
+Copy Fcm admin SDK configuration file into **docker** folder
+
+```bash
+$ cp fcm-admin-sdk.json docker/fcm.config.json  
+$ docker build --tag=hspns -f docker/Dockerfile .
+$ docker run -p 5000:5000 -d -it hspns
+```
+
 ## Installation
 
 1. Clone repo and install notification server :
@@ -44,9 +59,11 @@ Application will start express server on  http://localhost:5000/
 >Input params:
 
 ```js
-{"token":"client_token", // Client token
- "title":"Title",  // Title of notification message
- "body":"Body" } // Body of notification message
+{
+    "token":"client_token", // Client token
+    "title":"Title",  // Title of notification message
+    "body":"Body" // Body of notification message
+} 
 ```
 
  > curl example :
@@ -59,9 +76,11 @@ curl -H "Content-Type: application/json" --data '{"token":"client_token","title"
 > Input params:
 
 ```js
-{"token":"client_token", // Client token
- "title":"Title",  // Title of notification message
- "body":"Body" } // Body of notification message
+{
+    "token":"client_token", // Client token
+    "title":"Title",  // Title of notification message
+    "body":"Body" // Body of notification message
+} 
 ```
 
 >curl example :
@@ -74,7 +93,9 @@ curl -H "Content-Type: application/json" --data '{"title":"Title","body":"Body"}
 > Input params:
 
 ```js
-{"tokens":"tokens"} // Comma separeted tokens
+{ 
+    "tokens":"tokens" // Comma separeted tokens
+} 
 ```
 
 >curl example :
@@ -87,7 +108,9 @@ curl -H "Content-Type: application/json" --data '{"tokens":"tokens"}' http://loc
 > Input params:
 
 ```js
-{"tokens":"tokens"} // Comma separeted tokens
+{
+    "tokens":"tokens" // Comma separeted tokens
+} 
 ```
 
 >curl example :
