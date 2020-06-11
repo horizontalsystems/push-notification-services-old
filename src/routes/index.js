@@ -1,5 +1,7 @@
-const router = require('express').Router();
+import { Router } from 'express'
+import required from './api/push.notif.routes'
 
-router.use('/api/v1', require('./api/push.notif.routes'));
+const router = new Router()
+router.use('/api/v1', required);
 
-module.exports = router;
+export default router
