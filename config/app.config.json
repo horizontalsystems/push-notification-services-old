@@ -1,0 +1,50 @@
+{
+    "development": {
+        "jwt": {
+            "secret": "secret_dev",
+            "options":{
+                "expiresIn" : "2d",
+                "issuer" : "HorizontalSystems"
+            }
+        },
+        "users": [
+            {
+                "id": 1,
+                "username": "admin",
+                "password": "secret"
+            }
+        ]
+    },
+    "test": {
+        "jwt": {
+            "secret": "secret_test",
+            "options":{
+                "expiresIn" : "2d",
+                "issuer" : "HorizontalSystems"
+            }
+        },
+        "users": [
+            {
+                "id": 1,
+                "username": "admin",
+                "password": "secret"
+            }
+        ]
+    },
+    "production": {
+        "jwt": {
+            "secret": "secret_prod",
+            "options":{
+                "expiresIn" : "2d",
+                "issuer" : "HorizontalSystems"
+            }
+        },
+        "users": [
+            {
+                "id": 1,
+                "username": "admin",
+                "password": "secret"
+            }
+        ]
+    }
+}

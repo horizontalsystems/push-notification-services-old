@@ -4,7 +4,7 @@ import firebaseAdmin from 'firebase-admin';
 
 const serviceAccount = require('../../../config/fcm.config.json');
 
-class FirebaseMessagingHandler {
+class FirebaseMessagingProvider {
     constructor(logger) {
         this.logger = logger
         firebaseAdmin.initializeApp({
@@ -80,4 +80,4 @@ class FirebaseMessagingHandler {
     }
 }
 
-export default FirebaseMessagingHandler;
+export default FirebaseMessagingProvider;

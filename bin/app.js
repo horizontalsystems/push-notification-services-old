@@ -1,4 +1,4 @@
-import PushNotificationServer from '../src/server/push.notif.server';
+import MessagingServer from '../src/server/messaging.server';
 
-const pushNotificationServer = new PushNotificationServer();
-pushNotificationServer.listen(5000);
+const messagingServer = new MessagingServer();
+messagingServer.listen(5000);
