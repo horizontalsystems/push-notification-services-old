@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-class Topic extends Sequelize.Model {
+class User extends Sequelize.Model {
     static init(sequelize, DataTypes) {
         return super.init(
             {
@@ -10,11 +10,13 @@ class Topic extends Sequelize.Model {
                     autoIncrement: true,
                     primaryKey: true
                 },
-                name: { type: DataTypes.STRING, allowNull: false, unique: true }
+                username: { type: DataTypes.STRING, allowNull: false, unique: true },
+                password: { type: DataTypes.STRING, unique: false },
+                created: { type: DataTypes.DATE, defaultValue: Sequelize.literal('NOW()') }
             },
             {
                 timestamps: false,
-                tableName: 'tb_topic',
+                tableName: 'tb_user',
                 sequelize
             }
         );
@@ -24,17 +26,21 @@ class Topic extends Sequelize.Model {
         return this.findOne({
             where,
             attributes: ['id'],
-            order: [['name', 'DESC']]
+            order: [['username', 'DESC']]
         });
     }
 
-    static getByName(where) {
+    static getByUsername(where) {
         return this.findOne({
             where,
-            attributes: ['name'],
-            order: [['name', 'DESC']]
+            attributes: ['username'],
+            order: [['username', 'DESC']]
         });
+    }
+
+    static getAll() {
+        return this.findAll()
     }
 }
 
-export default Topic;
+export default User;
