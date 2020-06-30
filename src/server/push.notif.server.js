@@ -4,13 +4,15 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import routes from '../routes'
 import logger from '../utils/logger.winston'
+import db from '../models/index'
 
 const morgan = require('morgan');
 
-class MessagingServer {
+class PushNotificationServer {
     constructor() {
         this.app = express();
         this.http = http.createServer(this.app);
+        this.sequelize = db.sequelize
 
         const corsOptions = {
             origin: 'http://localhost:5000'
@@ -23,16 +25,21 @@ class MessagingServer {
             res.send('Push notification server is On !!!');
         });
 
-        this.initializeMiddlewares();
-        this.initializeRoutes();
+        this.initMiddlewares();
+        this.initRoutes();
+        this.initDb()
     }
 
-    initializeRoutes() {
+    initRoutes() {
         this.app.use(routes);
     }
 
-    initializeMiddlewares() {
+    initMiddlewares() {
         this.app.use(morgan('combined', { stream: logger.stream }));
+    }
+
+    initDb() {
+        this.sequelize.sync({ force: false })
     }
 
     listen(port) {
@@ -41,4 +48,4 @@ class MessagingServer {
     }
 }
 
-export default MessagingServer;
+export default PushNotificationServer;

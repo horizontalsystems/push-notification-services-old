@@ -1,19 +1,17 @@
 /* eslint-disable class-methods-use-this */
-
 import firebaseAdmin from 'firebase-admin';
 
-const serviceAccount = require('../../../config/fcm.config.json');
-
 class FirebaseMessagingProvider {
-    constructor(logger) {
+    constructor(config, logger) {
+        this.config = config
         this.logger = logger
         firebaseAdmin.initializeApp({
-            credential: firebaseAdmin.credential.cert(serviceAccount),
-            databaseURL: 'https://hs-pns.firebaseio.com'
+            credential: firebaseAdmin.credential.cert(this.config.firebase),
+            databaseURL: ''
         });
     }
 
-    sendToAll(tokens, data) {
+    sendToAll(tokens, data = { id: '1' }) {
         const message = {
             data,
             tokens
@@ -22,14 +20,14 @@ class FirebaseMessagingProvider {
         firebaseAdmin.messaging().sendMulticast(message);
     }
 
-    sendNotification(tokens, title, body) {
+    send(tokens, title, body, data = { id: '1' }) {
         const payload = {
             notification: {
                 title,
                 body
-            }
+            },
+            data
         };
-
         const options = {
             priority: 'high',
             timeToLive: 60 * 60 * 24 // 1 day
@@ -38,45 +36,24 @@ class FirebaseMessagingProvider {
         return firebaseAdmin.messaging().sendToDevice(tokens, payload, options);
     }
 
-    send(token, data) {
-        const payload = {
-            data,
-            token
-        };
-
-        const options = {
-            priority: 'high',
-            timeToLive: 60 * 60 * 24 // 1 day
-        };
-
-        return firebaseAdmin.messaging().send(payload, options);
-    }
-
-    sendToTopic(topic, data) {
-        const payload = {
-            data
-        };
-
-        return firebaseAdmin.messaging().sendToTopic(topic, payload)
-    }
-
-    sendNotificationToTopic(topic, title, body) {
+    sendToChannel(channel, title, body, data = { id: '1' }) {
         const payload = {
             notification: {
                 title,
                 body
-            }
+            },
+            data
         };
 
-        return firebaseAdmin.messaging().sendToTopic(topic, payload)
+        return firebaseAdmin.messaging().sendToTopic(channel, payload)
     }
 
-    subscribeToTopic(tokens, topic) {
-        return firebaseAdmin.messaging().subscribeToTopic(tokens, topic);
+    subscribeToChannel(token, channel) {
+        return firebaseAdmin.messaging().subscribeToTopic(token, channel);
     }
 
-    unSubscribeFromTopic(tokens, topic) {
-        return firebaseAdmin.messaging().unsubscribeFromTopic(tokens, topic);
+    unSubscribeFromChannel(token, channel) {
+        return firebaseAdmin.messaging().unsubscribeFromTopic(token, channel);
     }
 }
 
