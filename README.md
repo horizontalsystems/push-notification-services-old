@@ -9,12 +9,13 @@ $ git clone https://github.com/horizontalsystems/push-notification-services
 $ cd push-notification-services
 ```
 
-Copy Fcm admin SDK configuration file into **docker** folder
+Update configuration files based on Production **config** folder
+1. app.config.json
+2. config.json (database)
+3. pns.config.json (Apns and Firebase settings)
 
-```bash
-$ cp fcm-admin-sdk.json docker/fcm.config.json  
-$ docker build --tag=hspns -f docker/Dockerfile .
-$ docker run -p 5000:5000 -d -it hspns
+```bash  
+$ docker-compose up
 ```
 
 ## Installation
