@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-class User extends Sequelize.Model {
+class Device extends Sequelize.Model {
     static init(sequelize, DataTypes) {
         return super.init(
             {
@@ -10,24 +10,29 @@ class User extends Sequelize.Model {
                     autoIncrement: true,
                     primaryKey: true
                 },
-                username: {
+                token: {
                     type: DataTypes.STRING,
                     allowNull: false,
                     unique: true
                 },
-                password: { type: DataTypes.STRING, unique: false },
-                created: {
-                    type: DataTypes.DATE,
-                    defaultValue: Sequelize.literal('NOW()')
-                }
+                type: { type: DataTypes.INTEGER, defaultValue: 1 }
             },
             {
                 timestamps: false,
-                tableName: 'tb_user',
+                tableName: 'tb_device',
                 sequelize
             }
         );
     }
+
+    static associate(models) {
+        Device.belongsToMany(models.Channel, {
+            through: 'tb_channel_device',
+            as: 'channels',
+            foreignKey: 'device_id',
+            otherKey: 'channel_id'
+        });
+    }
 }
 
-export default User;
+export default Device;

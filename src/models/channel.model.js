@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-class Topic extends Sequelize.Model {
+class Channel extends Sequelize.Model {
     static init(sequelize, DataTypes) {
         return super.init(
             {
@@ -14,27 +14,20 @@ class Topic extends Sequelize.Model {
             },
             {
                 timestamps: false,
-                tableName: 'tb_topic',
+                tableName: 'tb_channel',
                 sequelize
             }
         );
     }
 
-    static getById(where) {
-        return this.findOne({
-            where,
-            attributes: ['id'],
-            order: [['name', 'DESC']]
-        });
-    }
-
-    static getByName(where) {
-        return this.findOne({
-            where,
-            attributes: ['name'],
-            order: [['name', 'DESC']]
+    static associate(models) {
+        Channel.belongsToMany(models.Device, {
+            through: 'tb_channel_device',
+            as: 'devices',
+            foreignKey: 'channel_id',
+            otherKey: 'device_id'
         });
     }
 }
 
-export default Topic;
+export default Channel;

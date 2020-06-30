@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
-import Topic from './topic.model';
+import Device from './device.model';
+import Channel from './channel.model';
 import User from './user.model';
 import dbConfig from '../../config/config.json';
 
@@ -13,7 +14,8 @@ const sequelize = new Sequelize(
 
 const models = {
     User: User.init(sequelize, Sequelize),
-    Topic: Topic.init(sequelize, Sequelize)
+    Channel: Channel.init(sequelize, Sequelize),
+    Device: Device.init(sequelize, Sequelize)
 };
 
 // This creates relationships in the ORM
@@ -26,4 +28,4 @@ const db = {
     sequelize
 };
 
-module.exports = db;
+export default db
