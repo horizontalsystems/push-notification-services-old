@@ -2,14 +2,15 @@ version: '3.8'
 services:
     app:
         container_name: push-notif-server
+        command: node -r esm bin/app.js
         build:
             context: '.'
             dockerfile: './docker/Dockerfile'
         depends_on:
-            - postgres
+            - db
         ports:
             - '5000:5000'
-    postgres:
+    db:
         container_name: postgres
         image: postgres:12-alpine
         ports:
