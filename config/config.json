@@ -2,7 +2,7 @@
     "development": {
         "username": "postgres",
         "password": "postgres",
-        "database": "hsm",
+        "database": "pns",
         "host": "127.0.0.1",
         "port": 5432,
         "dialect": "postgres",
@@ -10,16 +10,24 @@
             "idle": 30000,
             "min": 2,
             "max": 5
+        },
+        "logging": true,
+        "define": {
+            "timestamps": false
         }
     },
     "test": {
         "dialect": "sqlite",
-        "storage": ":memory"
+        "storage": ":memory",
+        "logging": true,
+        "define": {
+            "timestamps": true
+        }
     },
     "production": {
         "username": "postgres",
         "password": "postgres",
-        "database": "hsm",
+        "database": "pns",
         "host": "127.0.0.1",
         "port": 5432,
         "dialect": "postgres",
@@ -27,6 +35,10 @@
             "idle": 30000,
             "min": 2,
             "max": 5
+        },
+        "logging": false,
+        "define": { 
+            "timestamps": false 
         }
     }
 }

@@ -3,7 +3,7 @@
         "jwt": {
             "secret": "secret_dev",
             "options":{
-                "expiresIn" : "2d",
+                "expiresIn" : "1d",
                 "issuer" : "HorizontalSystems"
             }
         },
@@ -19,7 +19,7 @@
         "jwt": {
             "secret": "secret_test",
             "options":{
-                "expiresIn" : "2d",
+                "expiresIn" : "1h",
                 "issuer" : "HorizontalSystems"
             }
         },
@@ -35,7 +35,7 @@
         "jwt": {
             "secret": "secret_prod",
             "options":{
-                "expiresIn" : "2d",
+                "expiresIn" : "3h",
                 "issuer" : "HorizontalSystems"
             }
         },
