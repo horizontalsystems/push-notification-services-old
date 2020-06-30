@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+    app:
+        container_name: push-notif-server
+        build: '.'
+        depends_on:
+            - postgres
+        ports:
+            - '5000:5000'
+    postgres:
+        container_name: postgres12
+        image: postgres:12-alpine
+        ports:
+            - '5432:5432'
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: pns
