@@ -39,8 +39,7 @@ class StorageService {
                 name: newChannel.name
             },
             defaults: {
-                name: newChannel.name,
-                devices: [ id: newChannel.deviceId]
+                name: newChannel.name
             }
         }).then(created => {
             console.log(JSON.stringify(created[0]));
