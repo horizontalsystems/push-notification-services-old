@@ -15,6 +15,7 @@
     "sqlite3": "^4.2.0"
   },
   "dependencies": {
+    "apn": "^2.2.0",
     "app-root-path": "^3.0.0",
     "body-parser": "^1.19.0",
     "const": "^1.0.0",
@@ -25,6 +26,10 @@
     "firebase-admin": "^8.12.1",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
+    "pg": "^8.2.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.22.0",
+    "sequelize-cli": "^5.5.1",
     "winston": "^3.2.1"
   }
 }
