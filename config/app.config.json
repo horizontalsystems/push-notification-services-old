@@ -11,7 +11,14 @@
             {
                 "id": 1,
                 "username": "admin",
-                "password": "secret"
+                "password": "secret",
+                "role": "admin"
+            },
+            {
+                "id": 2,
+                "username": "user",
+                "password": "secret",
+                "role": "user"
             }
         ]
     },
@@ -27,9 +34,15 @@
             {
                 "id": 1,
                 "username": "admin",
-                "password": "secret"
-            }
-        ]
+                "password": "secret",
+                "role": "admin"
+            },
+            {
+                "id": 2,
+                "username": "user",
+                "password": "secret",
+                "role": "user"
+            }        ]
     },
     "production": {
         "jwt": {
@@ -43,8 +56,14 @@
             {
                 "id": 1,
                 "username": "admin",
-                "password": "secret"
-            }
-        ]
+                "password": "secret",
+                "role": "admin"
+            },
+            {
+                "id": 2,
+                "username": "user",
+                "password": "secret",
+                "role": "user"
+            }        ]
     }
 }
