@@ -15,7 +15,7 @@ Update configuration files based on Production **config** folder
 3. pns.config.json (Apns and Firebase settings)
 
 ```bash  
-$ docker-compose up
+$ docker-compose up -d
 ```
 
 ## Installation
@@ -27,6 +27,9 @@ $ git clone https://github.com/horizontalsystems/push-notification-services
 $ cd push-notification-services
 $ npm install
 ```
+2. Install PostgreSQL database
+    a. Create database with name "pns"
+    b. Set username and password (postgres/postgres)
 
 2. Set/Update Firebase config file with Firebase project settings:
 
@@ -71,7 +74,7 @@ curl "http://localhost:5000/api/v1/identity/authenticate?username=admin&password
 ```
 
 
-2. Send message to device :POST  ``/api/v1/send/notification``
+2. Send message to device :POST  ``/api/v1/admin/send``
 
 >Input params (Add Bearer authorization token):
 
@@ -85,10 +88,10 @@ curl "http://localhost:5000/api/v1/identity/authenticate?username=admin&password
 
  > curl example :
 ```bash
-curl -H "Content-Type: application/json" --data '{"token":"client_token","title":"Title","body":"Body"}' http://localhost:5000/api/v1/send/notification
+curl -H "Content-Type: application/json" --data '{"token":"client_token","title":"Title","body":"Body"}' http://localhost:5000/api/v1/admin/send/
 ```
 
-3. Send message to Topic :POST  ``/api/v1/send/notification/:TOPIC_NAME``
+3. Send message to Topic :POST  ``/api/v1/admin/send/:TOPIC_NAME``
 
 > Input params (Add Bearer authorization token):
 
@@ -102,35 +105,35 @@ curl -H "Content-Type: application/json" --data '{"token":"client_token","title"
 
 >curl example :
 ```bash
-curl -H "Content-Type: application/json" --data '{"title":"Title","body":"Body"}' http://localhost:5000/api/v1/send/notification/PRICE_CHANGE
+curl -H "Content-Type: application/json" --data '{"title":"Title","body":"Body"}' http://localhost:5000/api/v1/admin/send/PRICE_CHANGE
 ```
 
-4. Subscribe device to Topic :POST  ``/api/v1/subscribe/:TOPIC_NAME``
+4. Subscribe device to Topic :POST  ``/api/v1/pns/subscribe/:TOPIC_NAME``
 
 > Input params (Add Bearer authorization token):
 
 ```js
 { 
-    "tokens":"tokens" // Comma separeted tokens
+    "token":"token"
 } 
 ```
 
 >curl example :
 ```bash
-curl -H "Content-Type: application/json" --data '{"tokens":"tokens"}' http://localhost:5000/api/v1/subscribe/PRICE_CHANGE
+curl -H "Content-Type: application/json" --data '{"token":"token"}' http://localhost:5000/api/v1/pns/subscribe/PRICE_CHANGE
 ```
 
-5. UnSubscribe device from Topic :POST  ``/api/v1/unsubscribe/:TOPIC_NAME``
+5. UnSubscribe device from Topic :POST  ``/api/v1/pns/unsubscribe/:TOPIC_NAME``
 
 > Input params (Add Bearer authorization token):
 
 ```js
 {
-    "tokens":"tokens" // Comma separeted tokens
+    "token":"token"
 } 
 ```
 
 >curl example :
 ```bash
-curl -H "Content-Type: application/json" --data '{"tokens":"tokens"}' http://localhost:5000/api/v1/unsubscribe/PRICE_CHANGE
+curl -H "Content-Type: application/json" --data '{"token":"token"}' http://localhost:5000/api/v1/pns/unsubscribe/PRICE_CHANGE
 ```
