@@ -15,7 +15,7 @@ class Device extends Sequelize.Model {
                     allowNull: false,
                     unique: true
                 },
-                type: { type: DataTypes.INTEGER, defaultValue: 1 }
+                type: { type: DataTypes.INTEGER, defaultValue: 2 }
             },
             {
                 timestamps: false,
@@ -29,8 +29,11 @@ class Device extends Sequelize.Model {
         Device.belongsToMany(models.Channel, {
             through: 'tb_channel_device',
             as: 'channels',
-            foreignKey: 'device_id',
-            otherKey: 'channel_id'
+            foreignKey: {
+                name: 'device_id',
+                fieldName: 'deviceId'
+            },
+            onDelete: 'cascade'
         });
     }
 }

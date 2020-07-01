@@ -16,6 +16,7 @@ class ApnsProvider {
         note.alert = { title: notifTitle, body: notifBody };
         note.payload = payload;
         note.topic = this.config.apn.bundle_id;
+
         return this.apnProvider.send(note, tokens)
     }
 }

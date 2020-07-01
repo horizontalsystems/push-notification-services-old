@@ -24,7 +24,7 @@ class IdentityService {
         const user = this.getUserByUsername(username);
 
         if (user && user.password === password) {
-            const payload = { user: user.username };
+            const payload = { role: user.role };
             const { options } = config.jwt;
             const token = jwt.sign(payload, config.jwt.secret, options);
 

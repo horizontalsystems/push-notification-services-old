@@ -1,26 +1,37 @@
-import express from 'express';
 import PushNotificationController from '../../controllers/push.notif.controller';
 import logger from '../../utils/logger.winston';
 
-const router = express.Router();
 const pushNotificationController = new PushNotificationController(logger);
 
-// Messaging
+// Admin routes
+const adminPnsRoutes = (router => {
+    router.post('/send', (req, res) => {
+        pushNotificationController.send(req, res);
+    });
 
-router.post('/send', (req, res) => {
-    pushNotificationController.send(req, res);
+    router.post('/send/:channel', (req, res) => {
+        pushNotificationController.sendToChannel(req, res);
+    });
+
+    return router
+})
+
+// User routes
+const userPnsRoutes = (router => {
+    router.post('/subscribe/:channel', (req, res) => {
+        pushNotificationController.subscribeToChannel(req, res);
+    });
+
+    router.post('/unsubscribe/:channel', (req, res) => {
+        pushNotificationController.unSubscribeFromChannel(req, res);
+    });
+
+    return router
 });
 
-router.post('/send/:channel', (req, res) => {
-    pushNotificationController.sendToChannel(req, res)
-});
+const psnRoutes = {
+    adminPnsRoutes,
+    userPnsRoutes
+}
 
-router.post('/subscribe/:channel', (req, res) => {
-    pushNotificationController.subscribeToChannel(req, res)
-});
-
-router.post('/unsubscribe/:channel', (req, res) => {
-    pushNotificationController.unSubscribeFromChannel(req, res)
-});
-
-export default router
+export default psnRoutes

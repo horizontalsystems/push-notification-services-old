@@ -24,8 +24,11 @@ class Channel extends Sequelize.Model {
         Channel.belongsToMany(models.Device, {
             through: 'tb_channel_device',
             as: 'devices',
-            foreignKey: 'channel_id',
-            otherKey: 'device_id'
+            foreignKey: {
+                name: 'channel_id',
+                fieldName: 'channelId'
+            },
+            onDelete: 'cascade'
         });
     }
 }

@@ -32,7 +32,7 @@ class PushNotificationController {
                 req.body.data
             )
             .then(response => {
-                res.status(200).json(response);
+                res.status(200).json({ success: response });
             })
             .catch(error => {
                 res.status(500).send(error);
@@ -43,7 +43,7 @@ class PushNotificationController {
         this.pushNotificationService
             .subscribeToChannel(req.body.token, req.params.channel)
             .then(response => {
-                res.status(200).json(response);
+                res.status(200).json({ success: response });
             })
             .catch(error => {
                 res.status(500).send(error);
@@ -51,10 +51,32 @@ class PushNotificationController {
     }
 
     unSubscribeFromChannel(req, res) {
-        this.pushNotificationService.un
+        this.pushNotificationService
             .unSubscribeFromChannel(req.body.token, req.params.channel)
             .then(response => {
-                res.status(200).json(response);
+                res.status(200).json({ success: response });
+            })
+            .catch(error => {
+                res.status(500).send(error);
+            });
+    }
+
+    removeDevice(req, res) {
+        this.pushNotificationService
+            .removeDevice(req.params.token)
+            .then(response => {
+                res.status(200).json({ success: response });
+            })
+            .catch(error => {
+                res.status(500).send(error);
+            });
+    }
+
+    removeChannel(req, res) {
+        this.pushNotificationService
+            .removeChannel(req.params.channelName)
+            .then(response => {
+                res.status(200).json({ success: response });
             })
             .catch(error => {
                 res.status(500).send(error);

@@ -13,9 +13,10 @@ class PushNotificationServer {
         this.app = express();
         this.http = http.createServer(this.app);
         this.sequelize = db.sequelize
+        this.port = process.env.PORT || '5000'
 
         const corsOptions = {
-            origin: 'http://localhost:5000'
+            origin: `http://localhost:${this.port}`
         };
 
         this.app.use(cors(corsOptions));
@@ -42,9 +43,9 @@ class PushNotificationServer {
         this.sequelize.sync({ force: false })
     }
 
-    listen(port) {
-        this.http.listen(port);
-        logger.info(`App started listening port:${port}`)
+    listen() {
+        this.http.listen(this.port);
+        logger.info(`App started listening port:${this.port}`)
     }
 }
 

@@ -3,8 +3,8 @@
         "username": "postgres",
         "password": "postgres",
         "database": "pns",
-        "host": "db",
-        "port": 5432,
+        "host": "localhost",
+        "port": 5433,
         "dialect": "postgres",
         "pool": {
             "idle": 30000,
@@ -28,7 +28,7 @@
         "username": "postgres",
         "password": "postgres",
         "database": "pns",
-        "host": "127.0.0.1",
+        "host": "db",
         "port": 5432,
         "dialect": "postgres",
         "pool": {
