@@ -1,18 +1,36 @@
 import IdentityService from '../services/identity.service';
 
 class AuthorizationMiddleware {
-    static authenticateToken(req, res, next) {
+    static verifyJWT(req) {
         const authHeader = req.headers.authorization;
         const token = authHeader && authHeader.split(' ')[1];
         if (token == null) {
-            return res.sendStatus(401);
+            throw new Error('Unauhtorized');
         }
 
         return IdentityService.verifyJWT(token)
-            .then(() => {
+    }
+
+    static async authenticateToken(req, res, next) {
+        try {
+            await AuthorizationMiddleware.verifyJWT(req)
+            next();
+        } catch (e) {
+            res.status(401).json({ error: 'Not Authorized' })
+        }
+    }
+
+    static async authorizeAdmin(req, res, next) {
+        try {
+            const result = await AuthorizationMiddleware.verifyJWT(req)
+            if (result.role === 'admin') {
                 next();
-            })
-            .catch(() => res.status(401).json({ error: 'Not Authorized' }))
+            } else {
+                res.status(401).json({ error: 'Not Authorized' })
+            }
+        } catch (e) {
+            res.status(401).json({ error: 'Not Authorized' })
+        }
     }
 }
 
