@@ -13,6 +13,10 @@ const adminPnsRoutes = (router => {
         pushNotificationController.sendToChannel(req, res);
     });
 
+    router.post('/send/data/:channel', (req, res) => {
+        pushNotificationController.sendDataToChannel(req, res);
+    });
+
     return router
 })
 
@@ -22,8 +26,16 @@ const userPnsRoutes = (router => {
         pushNotificationController.subscribeToChannel(req, res);
     });
 
+    router.post('/subscribe', (req, res) => {
+        pushNotificationController.subscribeToChannels(req, res);
+    });
+
     router.post('/unsubscribe/:channel', (req, res) => {
         pushNotificationController.unSubscribeFromChannel(req, res);
+    });
+
+    router.post('/unsubscribe', (req, res) => {
+        pushNotificationController.unSubscribeFromChannels(req, res);
     });
 
     return router

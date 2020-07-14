@@ -17,6 +17,15 @@ class StorageService {
         });
     }
 
+    static getChannels(channelNames) {
+        return Channel.findAll({
+            where: {
+                name: channelNames
+            },
+            order: [['name', 'DESC']]
+        });
+    }
+
     static getSubscribedDevices(channelName) {
         return Channel.findOne({
             include: [{
@@ -27,6 +36,19 @@ class StorageService {
                 through: { attributes: [] }
             }],
             where: { name: channelName }
+        })
+    }
+
+    static getDeviceChannels(token) {
+        return Device.findOne({
+            include: [{
+                model: Channel,
+                as: 'channels',
+                required: false,
+                attributes: ['id', 'name'],
+                through: { attributes: [] }
+            }],
+            where: { token }
         })
     }
 
@@ -55,6 +77,23 @@ class StorageService {
         }).then(created => created[0]);
     }
 
+    static saveDevice(token) {
+        return Channel.findOrCreate({
+            where: {
+                token
+            },
+            defaults: {
+                token
+            }
+        }).then(created => created[0]);
+    }
+
+    static saveChannels(channels) {
+        return Channel.bulkCreate(channels, {
+            updateOnDuplicate: ['name']
+        })
+    }
+
     static addDeviceToChannel(token, channel) {
         return Device.findOrCreate({
             where: {
@@ -70,6 +109,21 @@ class StorageService {
         });
     }
 
+    static addDeviceToChannels(token, channels) {
+        return Device.findOrCreate({
+            where: {
+                token
+            },
+            defaults: {
+                token
+            }
+        }).then(created => {
+            if (created[0]) {
+                created[0].addChannels(channels)
+            }
+        });
+    }
+
     static removeDeviceFromChannel(token, channel) {
         return Device.findOne({
             where: {
@@ -77,7 +131,19 @@ class StorageService {
             }
         }).then(found => {
             if (found) {
-                channel.removeDevices(found)
+                found.removeChannel(channel)
+            }
+        });
+    }
+
+    static removeDeviceFromChannels(token, channels) {
+        return Device.findOne({
+            where: {
+                token
+            }
+        }).then(found => {
+            if (found) {
+                found.removeChannels(channels)
             }
         });
     }

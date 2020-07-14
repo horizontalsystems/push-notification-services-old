@@ -39,6 +39,21 @@ class PushNotificationController {
             });
     }
 
+    sendDataToChannel(req, res) {
+        this.pushNotificationService
+            .sendDataToChannel(
+                req.params.channel,
+                req.body
+            )
+            .then(response => {
+                res.status(200).json({ success: response });
+            })
+            .catch(error => {
+                res.status(500).send(error);
+            });
+    }
+
+
     subscribeToChannel(req, res) {
         this.pushNotificationService
             .subscribeToChannel(req.body.token, req.params.channel)
@@ -50,9 +65,31 @@ class PushNotificationController {
             });
     }
 
+    subscribeToChannels(req, res) {
+        this.pushNotificationService
+            .subscribeToChannels(req.body.token, req.body.channels || req.body.topics)
+            .then(response => {
+                res.status(200).json({ success: response });
+            })
+            .catch(error => {
+                res.status(500).send(error);
+            });
+    }
+
     unSubscribeFromChannel(req, res) {
         this.pushNotificationService
             .unSubscribeFromChannel(req.body.token, req.params.channel)
+            .then(response => {
+                res.status(200).json({ success: response });
+            })
+            .catch(error => {
+                res.status(500).send(error);
+            });
+    }
+
+    unSubscribeFromChannels(req, res) {
+        this.pushNotificationService
+            .unSubscribeFromChannels(req.body.token, req.body.channels || req.body.topics)
             .then(response => {
                 res.status(200).json({ success: response });
             })
