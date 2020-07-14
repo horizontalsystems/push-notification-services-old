@@ -48,6 +48,18 @@ class FirebaseMessagingProvider {
         return firebaseAdmin.messaging().sendToTopic(channel, payload)
     }
 
+    sendDataMessageToChannel(channel, data) {
+        const updateData = data
+
+        if (data['loc-args']) {
+            updateData['loc-args'] = JSON.stringify(data['loc-args'])
+        }
+        const payload = { data: updateData }
+
+        return firebaseAdmin.messaging().sendToTopic(channel, payload)
+    }
+
+
     subscribeToChannel(token, channel) {
         return firebaseAdmin.messaging().subscribeToTopic(token, channel);
     }
