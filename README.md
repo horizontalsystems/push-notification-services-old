@@ -123,7 +123,23 @@ curl -H "Content-Type: application/json" --data '{"title":"Title","body":"Body"}
 curl -H "Content-Type: application/json" --data '{"token":"token"}' http://localhost:5000/api/v1/pns/subscribe/PRICE_CHANGE
 ```
 
-5. UnSubscribe device from Topic :POST  ``/api/v1/pns/unsubscribe/:TOPIC_NAME``
+5. Subscribe device to Topics :POST  ``/api/v1/pns/subscribe``
+
+> Input params (Add Bearer authorization token):
+
+```js
+{ 
+    "token":"token",
+    "topics": ["topic1", "topic2", "topic3"]
+} 
+```
+
+>curl example :
+```bash
+curl -H "Content-Type: application/json" --data '{"token":"token", "topics": ["topic1"]}' http://localhost:5000/api/v1/pns/subscribe
+```
+
+6. UnSubscribe device from Topic :POST  ``/api/v1/pns/unsubscribe/:TOPIC_NAME``
 
 > Input params (Add Bearer authorization token):
 
@@ -137,3 +153,20 @@ curl -H "Content-Type: application/json" --data '{"token":"token"}' http://local
 ```bash
 curl -H "Content-Type: application/json" --data '{"token":"token"}' http://localhost:5000/api/v1/pns/unsubscribe/PRICE_CHANGE
 ```
+
+7. UnSubscribe device from Topics :POST  ``/api/v1/pns/unsubscribe``
+
+> Input params (Add Bearer authorization token):
+
+```js
+{ 
+    "token":"token",
+    "topics": ["topic1", "topic2", "topic3"]
+} 
+```
+
+>curl example :
+```bash
+curl -H "Content-Type: application/json" --data '{"token":"token", "topics": ["topic1"]}' http://localhost:5000/api/v1/pns/unsubscribe
+```
+
