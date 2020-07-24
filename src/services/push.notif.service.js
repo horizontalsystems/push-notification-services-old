@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import FirebaseMessagingProvider from './provider/firebase.messaging.provider';
 import ApnsProvider from './provider/apns.provider';
 import DeviceType from '../models/device.type'
@@ -35,8 +36,10 @@ class PushNotificationService {
 
                 this.apnsProvider.sendDataMessage(tokens, data)
             }
-            this.logger.info(`Sending message to Channel:${channelName}`)
-            this.firebaseMessagingProvider.sendToChannel(channelName, data)
+
+            this.logger.info(`Sending message to Firebase Channel:${channelName}`)
+            const response = await this.firebaseMessagingProvider.sendToChannel(channelName, notifTitle, notifBody, data)
+            this.logger.info(`Firebase Response:${JSON.stringify(response)}`)
         } catch (e) {
             this.logger.info(e)
         }
