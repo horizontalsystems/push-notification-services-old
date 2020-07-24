@@ -170,3 +170,21 @@ curl -H "Content-Type: application/json" --data '{"token":"token"}' http://local
 curl -H "Content-Type: application/json" --data '{"token":"token", "topics": ["topic1"]}' http://localhost:5000/api/v1/pns/unsubscribe
 ```
 
+8. UnSubscribe device from all Topics :GET  ``/api/v1/pns/unsubscribeall/:TOKEN``
+
+> Input params (Add Bearer authorization token):
+
+>curl example :
+```bash
+curl -H "Content-Type: application/json" http://localhost:5000/api/v1/pns/unsubscribeall/token
+```
+
+9. Get all Topics device subscribed to :GET  ``/api/v1/pns/channels/:TOKEN``
+
+> Input params (Add Bearer authorization token):
+
+>curl example :
+```bash
+curl -H "Content-Type: application/json" http://localhost:5000/api/v1/pns/channels/token
+```
+
