@@ -34,8 +34,16 @@ const userPnsRoutes = (router => {
         pushNotificationController.unSubscribeFromChannel(req, res);
     });
 
+    router.get('/unsubscribeall/:token', (req, res) => {
+        pushNotificationController.unSubscribeFromAllChannels(req, res);
+    });
+
     router.post('/unsubscribe', (req, res) => {
         pushNotificationController.unSubscribeFromChannels(req, res);
+    });
+
+    router.get('/channels/:token', (req, res) => {
+        pushNotificationController.getChannels(req, res);
     });
 
     return router

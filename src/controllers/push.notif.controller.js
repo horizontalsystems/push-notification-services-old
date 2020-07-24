@@ -98,6 +98,29 @@ class PushNotificationController {
             });
     }
 
+    unSubscribeFromAllChannels(req, res) {
+        this.pushNotificationService
+            .unSubscribeFromAllChannels(req.params.token)
+            .then(response => {
+                res.status(200).json({ success: response });
+            })
+            .catch(error => {
+                res.status(500).send(error);
+            });
+    }
+
+    getChannels(req, res) {
+        this.pushNotificationService
+            .getChannels(req.params.token)
+            .then(response => {
+                res.status(200).json(response);
+            })
+            .catch(error => {
+                res.status(500).send(error);
+            });
+    }
+
+
     removeDevice(req, res) {
         this.pushNotificationService
             .removeDevice(req.params.token)

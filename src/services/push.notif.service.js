@@ -150,6 +150,30 @@ class PushNotificationService {
         }
     }
 
+    async unSubscribeFromAllChannels(token) {
+        try {
+            if (Utils.detectDeviceType(token) === DeviceType.IOS) {
+                StorageService.removeDevice(token)
+            }
+        } catch (e) {
+            this.logger.info(e)
+        }
+    }
+
+    async getChannels(token) {
+        try {
+            const device = await StorageService.getDeviceChannels(token)
+            if (device.channels) {
+                const channelNames = device.channels.map(channel => channel.name)
+                return channelNames
+            }
+        } catch (e) {
+            this.logger.info(e)
+        }
+
+        return []
+    }
+
     async removeDevice(token) {
         try {
             StorageService.removeDevice(token)
