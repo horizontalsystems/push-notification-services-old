@@ -3,6 +3,8 @@
 const appRoot = require('app-root-path');
 const winston = require('winston');
 
+const { format, createLogger, transports } = require('winston');
+
 const options = {
     file: {
         level: 'info',
@@ -11,7 +13,7 @@ const options = {
         json: true,
         maxsize: 5242880, // 5MB
         maxFiles: 5,
-        colorize: false
+        colorize: true
     },
     console: {
         level: 'debug',
@@ -21,7 +23,14 @@ const options = {
     }
 };
 
-const logger = winston.createLogger({
+const logger = createLogger({
+    format: format.combine(
+        format.timestamp({
+            format: 'YYYY-MM-DD HH:mm:ss'
+        }),
+        format.simple(),
+        format.printf(info => `-- ${info.timestamp} ${info.level}: ${info.message}`)
+    ),
     transports: [
         // new winston.transports.File(options.file),
         new winston.transports.Console(options.console)
