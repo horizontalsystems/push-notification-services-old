@@ -7,27 +7,25 @@ class ApnsProvider {
         this.apnProvider = new apn.Provider(this.config.apn);
     }
 
-    send(tokens, notifTitle, notifBody, payload) {
+    send(tokens, notifTitle, notifBody, payload, bundleId) {
         const note = new apn.Notification();
 
         note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
-        note.badge = 3;
+        note.badge = 1;
         note.sound = '';
         note.alert = { title: notifTitle, body: notifBody };
         note.payload = payload;
-        note.production = this.config.apn.production;
-        note.topic = this.config.apn.bundle_id;
+        note.topic = bundleId || this.config.apn.bundle_id;
 
         return this.apnProvider.send(note, tokens)
     }
 
-    sendDataMessage(tokens, data) {
+    sendDataMessage(tokens, data, bundleId) {
         const note = new apn.Notification();
 
         note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
         note.alert = data;
-        note.topic = this.config.apn.bundle_id;
-        note.production = this.config.apn.token.production;
+        note.topic = bundleId || this.config.apn.bundle_id;
 
         return this.apnProvider.send(note, tokens)
     }

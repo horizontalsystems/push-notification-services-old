@@ -56,7 +56,7 @@ class PushNotificationController {
 
     subscribeToChannel(req, res) {
         this.pushNotificationService
-            .subscribeToChannel(req.body.token, req.params.channel)
+            .subscribeToChannel(req.body.token, req.params.channel, req.body.bundle_id)
             .then(response => {
                 res.status(200).json({ success: response });
             })
@@ -67,7 +67,7 @@ class PushNotificationController {
 
     subscribeToChannels(req, res) {
         this.pushNotificationService
-            .subscribeToChannels(req.body.token, req.body.channels || req.body.topics)
+            .subscribeToChannels(req.body.token, req.body.channels || req.body.topics, req.body.bundle_id)
             .then(response => {
                 res.status(200).json({ success: response });
             })

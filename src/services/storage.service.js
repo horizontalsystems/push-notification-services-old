@@ -77,13 +77,14 @@ class StorageService {
         }).then(created => created[0]);
     }
 
-    static saveDevice(token) {
+    static saveDevice(token, bundleId) {
         return Channel.findOrCreate({
             where: {
                 token
             },
             defaults: {
-                token
+                token,
+                bundleId
             }
         }).then(created => created[0]);
     }
@@ -94,13 +95,14 @@ class StorageService {
         })
     }
 
-    static addDeviceToChannel(token, channel) {
+    static addDeviceToChannel(token, bundleId, channel) {
         return Device.findOrCreate({
             where: {
                 token
             },
             defaults: {
-                token
+                token,
+                bundleId
             }
         }).then(created => {
             if (created[0]) {
@@ -109,13 +111,14 @@ class StorageService {
         });
     }
 
-    static addDeviceToChannels(token, channels) {
+    static addDeviceToChannels(token, bundleId, channels) {
         return Device.findOrCreate({
             where: {
                 token
             },
             defaults: {
-                token
+                token,
+                bundleId
             }
         }).then(created => {
             if (created[0]) {

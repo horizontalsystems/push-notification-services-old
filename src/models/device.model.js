@@ -15,6 +15,10 @@ class Device extends Sequelize.Model {
                     allowNull: false,
                     unique: true
                 },
+                bundleId: {
+                    type: DataTypes.STRING,
+                    allowNull: true
+                },
                 type: { type: DataTypes.INTEGER, defaultValue: 2 }
             },
             {

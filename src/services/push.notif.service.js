@@ -65,7 +65,7 @@ class PushNotificationService {
     }
 
 
-    async subscribeToChannel(token, channelName) {
+    async subscribeToChannel(token, channelName, bundleId) {
         try {
             if (Utils.detectDeviceType(token) === DeviceType.IOS) {
                 const channel = {
@@ -74,7 +74,7 @@ class PushNotificationService {
                 const createdChannel = await StorageService.saveChannel(channel)
 
                 if (createdChannel) {
-                    StorageService.addDeviceToChannel(token, createdChannel)
+                    StorageService.addDeviceToChannel(token, bundleId, createdChannel)
                 }
             } else {
                 this.firebaseMessagingProvider.subscribeToChannel(token, channelName);
@@ -84,13 +84,13 @@ class PushNotificationService {
         }
     }
 
-    async subscribeToChannels(token, channelNames) {
+    async subscribeToChannels(token, channelNames, bundleId) {
         try {
             if (Utils.detectDeviceType(token) === DeviceType.IOS) {
                 const channels = channelNames.map(channelName => ({ name: channelName }))
                 const savedChannels = await StorageService.saveChannels(channels)
 
-                StorageService.addDeviceToChannels(token, savedChannels)
+                StorageService.addDeviceToChannels(token, bundleId, savedChannels)
             } else {
                 channelNames.forEach(name => {
                     this.firebaseMessagingProvider.subscribeToChannel(token, name);
