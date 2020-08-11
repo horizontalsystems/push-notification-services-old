@@ -4,9 +4,9 @@
             "token": {
                 "key": "",
                 "keyId": "",
-                "teamId": "",
-                "production": false
+                "teamId": ""
             },
+            "production": false,
             "bundle_id": "io.horizontalsystems.bank-wallet.dev"
         },
         "firebase": {
@@ -27,9 +27,9 @@
             "token": {
                 "key": "",
                 "keyId": "",
-                "teamId": "",
-                "production": false
+                "teamId": ""
             },
+            "production": false,
             "bundle_id": "io.horizontalsystems.bank-wallet.dev"
         },
         "firebase": {
@@ -50,9 +50,9 @@
             "token": {
                 "key": "",
                 "keyId": "",
-                "teamId": "",
-                "production": true
+                "teamId": ""
             },
+            "production": true,
             "bundle_id": "io.horizontalsystems.bank-wallet"
         },
         "firebase": {
