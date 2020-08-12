@@ -130,6 +130,7 @@ curl -H "Content-Type: application/json" --data '{"token":"token"}' http://local
 ```js
 { 
     "token":"token",
+    "bundle_id": "bundle_id",
     "topics": ["topic1", "topic2", "topic3"]
 } 
 ```
@@ -145,7 +146,8 @@ curl -H "Content-Type: application/json" --data '{"token":"token", "topics": ["t
 
 ```js
 {
-    "token":"token"
+    "token":"token",
+    "bundle_id":"bundle_id",
 } 
 ```
 
