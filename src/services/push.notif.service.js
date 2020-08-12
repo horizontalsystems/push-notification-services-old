@@ -49,11 +49,16 @@ class PushNotificationService {
         try {
             const channel = await StorageService.getSubscribedDevicesByType(channelName, DeviceType.IOS)
             if (channel && channel.devices) {
-                const tokens = channel.devices.map(device => device.token);
-                this.logger.info(`Sending message to APN tokens:${tokens}`)
+                const bundleIds = Object.entries(Utils.groupBy(channel.devices, 'bundleId'))
 
-                const res = await this.apnsProvider.sendDataMessage(tokens, data)
-                this.logger.info(`APNS Response:${JSON.stringify(res)}`)
+                bundleIds.forEach(async bundle => {
+                    if (bundle[1]) {
+                        const tokens = bundle[1].map(d => d.token)
+                        this.logger.info(`Sending message to APN ${bundle[0]} , tokens:${tokens}`)
+                        const res = await this.apnsProvider.sendDataMessage(tokens, data, bundle[0])
+                        this.logger.info(`APNS Response:${JSON.stringify(res)}`)
+                    }
+                })
             }
 
             this.logger.info(`Sending message to Firebase Channel:${channelName}`)
@@ -63,7 +68,6 @@ class PushNotificationService {
             this.logger.info(e)
         }
     }
-
 
     async subscribeToChannel(token, channelName, bundleId) {
         try {

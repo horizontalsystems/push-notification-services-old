@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import DeviceType from '../models/device.type'
 
 class Utils {
@@ -10,6 +11,13 @@ class Utils {
         }
 
         return DeviceType.WEB
+    }
+
+    static groupBy(arrayObject, key) {
+        return arrayObject.reduce((rv, x) => {
+            (rv[x[key]] = rv[x[key]] || []).push(x);
+            return rv;
+        }, {});
     }
 }
 

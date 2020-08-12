@@ -58,7 +58,7 @@ class StorageService {
                 model: Device,
                 as: 'devices',
                 required: false,
-                attributes: ['id', 'token', 'type'],
+                attributes: ['id', 'token', 'bundleId', 'type'],
                 through: { attributes: [] },
                 where: { type: deviceType }
             }],
