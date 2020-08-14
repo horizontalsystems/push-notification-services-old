@@ -1,4 +1,4 @@
-import apn from 'apn';
+import apn from '@parse/node-apn';
 
 class ApnsProvider {
     constructor(config, logger) {
