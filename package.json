@@ -15,7 +15,7 @@
     "sqlite3": "^4.2.0"
   },
   "dependencies": {
-    "apn": "^2.2.0",
+    "apn": "github:node-apn/node-apn#3.0.0",
     "app-root-path": "^3.0.0",
     "body-parser": "^1.19.0",
     "const": "^1.0.0",
