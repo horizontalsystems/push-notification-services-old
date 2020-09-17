@@ -18,7 +18,11 @@ services:
         image: postgres:12-alpine
         ports:
             - '5433:5432'
+        volumes:
+            - pns-postgres-data:/var/lib/postgresql/data
         environment:
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: postgres
             POSTGRES_DB: pns
+volumes:
+      pns-postgres-data:
