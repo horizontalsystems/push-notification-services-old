@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config-pns
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: pns
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
